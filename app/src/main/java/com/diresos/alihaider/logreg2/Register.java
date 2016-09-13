@@ -1,8 +1,10 @@
 package com.diresos.alihaider.logreg2;
 
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -29,6 +31,8 @@ public class Register extends AppCompatActivity {
     String name, email, username, password, conPass;
     AlertDialog.Builder builder;
     String reg_url = "http://192.168.0.108/register.php";
+
+    String app_server_url = "http://192.168.0.108/fcmtest/fcm_insert.php";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,10 +79,10 @@ public class Register extends AppCompatActivity {
                                     public void onResponse(String response) {
 
                                         try {
-                                            JSONArray jsonArray=new JSONArray(response);
-                                            JSONObject jsonObject=jsonArray.getJSONObject(0);
-                                            String code=jsonObject.getString("code");
-                                            String message=jsonObject.getString("message");
+                                            JSONArray jsonArray = new JSONArray(response);
+                                            JSONObject jsonObject = jsonArray.getJSONObject(0);
+                                            String code = jsonObject.getString("code");
+                                            String message = jsonObject.getString("message");
                                             builder.setTitle("Server Response");
                                             builder.setMessage(message);
                                             displayAlert(code);
@@ -95,19 +99,18 @@ public class Register extends AppCompatActivity {
 
                                     }
                                 }
-                        ){
+                        ) {
                             @Override
                             protected Map<String, String> getParams() throws AuthFailureError {
-                                Map<String,String> params=new HashMap<String, String>();
-                                params.put("name",name);
-                                params.put("email",email);
-                                params.put("user_name",username);
-                                params.put("password",password);
+                                Map<String, String> params = new HashMap<String, String>();
+                                params.put("name", name);
+                                params.put("email", email);
+                                params.put("user_name", username);
+                                params.put("password", password);
                                 return params;
                             }
                         };
                         MySingleton.getInstance(Register.this).addToRequestQueue(stringRequest);
-
 
 
                     }
@@ -126,6 +129,36 @@ public class Register extends AppCompatActivity {
                     Password.setText("");
                     ConPassword.setText("");
                 } else if (code == "reg_success") {
+
+
+                    //Code for sending device token to database
+
+                    SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(getString(R.string.FCM_PREF), Context.MODE_PRIVATE);
+                    final String token = sharedPreferences.getString(getString(R.string.FCM_TOKEN), "");
+                    StringRequest stringRequest = new StringRequest(Request.Method.POST, app_server_url,
+                            new Response.Listener<String>() {
+
+                                @Override
+                                public void onResponse(String response) {
+
+                                }
+                            }
+                            , new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+
+                        }
+                    }) {
+                        @Override
+                        protected Map<String, String> getParams() throws AuthFailureError {
+                            Map<String, String> params = new HashMap<String, String>();
+                            params.put("fcm_token", token);
+
+                            return params;
+                        }
+                    };
+                    MySingleton.getInstance(Register.this).addToRequestQueue(stringRequest);
+
 
                     finish();
 

@@ -11,7 +11,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 public class HomeActivity extends AppCompatActivity {
-    Button dashboard;
+    Button dashboard,sendNot;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +33,7 @@ public class HomeActivity extends AppCompatActivity {
                 startActivity(i);
             }
         });
+
     }
 
     }
