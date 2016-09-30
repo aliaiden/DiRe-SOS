@@ -23,7 +23,7 @@ import java.util.Map;
 
 public class HomeActivity extends AppCompatActivity {
     Button dashboard, sendNot;
-    String app_server_url = "http://192.168.0.108/fcmtest/fcm_insert.php";
+    String app_server_url = "http://192.168.0.111/fcmtest/fcm_insert.php";
 
 
     @Override
