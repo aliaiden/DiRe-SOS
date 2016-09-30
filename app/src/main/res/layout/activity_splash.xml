@@ -2,19 +2,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#343434"
+    android:background="#ffffff"
     tools:context="com.diresos.alihaider.logreg2.SplashActivity"
     >
 
 
     <ImageView
-        android:layout_width="900dp"
+        android:layout_width="500dp"
         android:layout_height="900dp"
-        android:src="@drawable/logo3d"
+        android:src="@drawable/logo"
         android:gravity="center"
         android:layout_marginTop="50dp"
         android:id="@+id/ivLogo"
-        android:layout_centerInParent="true"/>
+        android:layout_centerInParent="true"
+        android:contentDescription="dire_sos_logo"/>
 
 
 </RelativeLayout>
