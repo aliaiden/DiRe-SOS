@@ -30,9 +30,12 @@ public class Register extends AppCompatActivity {
     EditText Name, Email, Username, Password, ConPassword;
     String name, email, username, password, conPass;
     AlertDialog.Builder builder;
-    String reg_url = "http://192.168.0.108/register.php";
+    String reg_url = "http://192.168.0.105/register.php";
+    int i;
 
-    String app_server_url = "http://192.168.0.108/fcmtest/fcm_insert.php";
+    String successfulRegisterMessage;
+
+    String app_server_url = "http://192.168.0.105/fcmtest/fcm_insert.php";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,7 +70,35 @@ public class Register extends AppCompatActivity {
                     displayAlert("input_error");
 
 
-                } else {
+                }
+                else if(isEmailCorrect(email)){
+
+                    builder.setTitle("Something went wrong");
+                    builder.setMessage("Please Enter a valid Email");
+                    displayAlert("input_error");
+
+                }
+/*
+                //check correct Email input
+                else {
+                    boolean correctEmail;
+                    if(correctEmail){
+                        
+                    }
+
+                    for (i = 0; i < email.length(); i++) {
+
+                        if (email.charAt(i) != '@') {
+                            builder.setTitle("Something went wrong");
+                            builder.setMessage("Please Enter a valid Email");
+                            displayAlert("input_error");
+                        }
+                    }
+                }
+                */
+
+
+                else {
                     if (!(password.equals(conPass))) {
                         builder.setTitle("Something went wrong");
                         builder.setMessage("Your passwords do not match");
@@ -83,6 +114,7 @@ public class Register extends AppCompatActivity {
                                             JSONObject jsonObject = jsonArray.getJSONObject(0);
                                             String code = jsonObject.getString("code");
                                             String message = jsonObject.getString("message");
+                                            successfulRegisterMessage = message;
                                             builder.setTitle("Server Response");
                                             builder.setMessage(message);
                                             displayAlert(code);
@@ -114,7 +146,18 @@ public class Register extends AppCompatActivity {
 
 
                     }
+
                 }
+            }
+
+            private boolean isEmailCorrect(String email) {
+                for (i = 0; i < email.length(); i++) {
+
+                    if (email.charAt(i) != '@') {
+                        break;
+                    }
+                }
+                return false;
             }
 
 
@@ -122,6 +165,7 @@ public class Register extends AppCompatActivity {
     }
 
     private void displayAlert(final String code) {
+
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
@@ -159,7 +203,6 @@ public class Register extends AppCompatActivity {
                     };
                     MySingleton.getInstance(Register.this).addToRequestQueue(stringRequest);
 
-
                     finish();
 
                 } else if (code == "reg_failed") {
@@ -172,6 +215,8 @@ public class Register extends AppCompatActivity {
 
             }
         });
+
+
         AlertDialog alertDialog = builder.create();
         alertDialog.show();
     }

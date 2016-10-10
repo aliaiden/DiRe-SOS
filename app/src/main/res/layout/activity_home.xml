@@ -9,7 +9,7 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.diresos.alihaider.logreg2.HomeActivity"
     android:orientation="vertical"
-    android:background="#eee111">
+    android:background="#00f">
 
 
 

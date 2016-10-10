@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.animation.Animation;
@@ -53,6 +54,7 @@ public class HomeActivity extends AppCompatActivity {
 
                 SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(getString(R.string.FCM_PREF), Context.MODE_PRIVATE);
                 final String token = sharedPreferences.getString(getString(R.string.FCM_TOKEN), "");
+                Log.d("TOKENTOKTOKENTOKENTOKE", token);
                 StringRequest stringRequest = new StringRequest(Request.Method.POST, app_server_url,
                         new Response.Listener<String>() {
 
@@ -60,13 +62,13 @@ public class HomeActivity extends AppCompatActivity {
                             public void onResponse(String response) {
 
                             }
-                        }
-                        , new Response.ErrorListener() {
+                        }, new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
 
                     }
-                }) {
+                })
+                {
                     @Override
                     protected Map<String, String> getParams() throws AuthFailureError {
                         Map<String, String> params = new HashMap<String, String>();
@@ -76,6 +78,7 @@ public class HomeActivity extends AppCompatActivity {
                     }
                 };
                 MySingleton.getInstance(HomeActivity.this).addToRequestQueue(stringRequest);
+
 
             }
         });

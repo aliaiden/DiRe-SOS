@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
     Button login_button;
     EditText Username, Password;
     String username, password;
-    String login_url="http://192.168.0.108/login.php";
+    String login_url="http://192.168.0.105/login.php";
     AlertDialog.Builder builder;
 
     @Override
