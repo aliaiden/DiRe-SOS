@@ -58,6 +58,7 @@ public class Register extends AppCompatActivity {
                 password = Password.getText().toString();
                 conPass = ConPassword.getText().toString();
 
+                String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
                 if (
                         name.equals("") ||
                                 email.equals("") ||
@@ -70,8 +71,7 @@ public class Register extends AppCompatActivity {
                     displayAlert("input_error");
 
 
-                }
-                else if(isEmailCorrect(email)){
+                } else if (email.matches(emailPattern)) {
 
                     builder.setTitle("Something went wrong");
                     builder.setMessage("Please Enter a valid Email");
@@ -142,7 +142,7 @@ public class Register extends AppCompatActivity {
                                 return params;
                             }
                         };
-                        MySingleton.getInstance(Register.this).addToRequestQueue(stringRequest);
+                        MySingleton.getmInstance(Register.this).addToRequestQueue(stringRequest);
 
 
                     }
@@ -150,6 +150,8 @@ public class Register extends AppCompatActivity {
                 }
             }
 
+
+            /*
             private boolean isEmailCorrect(String email) {
                 for (i = 0; i < email.length(); i++) {
 
@@ -159,6 +161,8 @@ public class Register extends AppCompatActivity {
                 }
                 return false;
             }
+
+            */
 
 
         });
@@ -201,7 +205,7 @@ public class Register extends AppCompatActivity {
                             return params;
                         }
                     };
-                    MySingleton.getInstance(Register.this).addToRequestQueue(stringRequest);
+                    MySingleton.getmInstance(Register.this).addToRequestQueue(stringRequest);
 
                     finish();
 

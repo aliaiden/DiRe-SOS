@@ -77,7 +77,7 @@ public class HomeActivity extends AppCompatActivity {
                         return params;
                     }
                 };
-                MySingleton.getInstance(HomeActivity.this).addToRequestQueue(stringRequest);
+                MySingleton.getmInstance(HomeActivity.this).addToRequestQueue(stringRequest);
 
 
             }

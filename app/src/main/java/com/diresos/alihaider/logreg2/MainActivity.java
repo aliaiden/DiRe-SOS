@@ -48,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         builder=new AlertDialog.Builder(MainActivity.this);
+
         login_button=(Button)findViewById(R.id.bn_login);
         Username=(EditText)findViewById(R.id.login_name);
         Password=(EditText)findViewById(R.id.login_password);
@@ -113,7 +114,7 @@ public class MainActivity extends AppCompatActivity {
                     };
 
 
-                    MySingleton.getInstance(MainActivity.this).addToRequestQueue(stringRequest);
+                    MySingleton.getmInstance(MainActivity.this).addToRequestQueue(stringRequest);
                 }
             }
         });
